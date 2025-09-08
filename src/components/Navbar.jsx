@@ -14,9 +14,9 @@ export default function Navbar({ cartCount }) {
         <Link to="/" className="hover:text-yellow-200">
           Home
         </Link>
-        <Link to="/menu" className="hover:text-yellow-200">
-          Menu
-        </Link>
+        //<Link to="/menu" className="hover:text-yellow-200">
+         // Menu
+        //</Link>
         <Link to="/cart" className="hover:text-yellow-200">
           Cart ({cartCount})
         </Link>
