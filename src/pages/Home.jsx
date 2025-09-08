@@ -6,7 +6,7 @@ export default function Home() {
     <section className="w-full min-h-screen bg-gradient-to-r from-orange-400 via-red-400 to-pink-500 flex items-center justify-center text-center px-6">
       <div className="text-white max-w-3xl">
         <h1 className="text-4xl md:text-6xl font-extrabold mb-8 drop-shadow-lg">
-          Welcome to The Thath Bihari Sweets 🍬
+          Welcome to The Theth Bihari Sweets 🍬
         </h1>
 
         <p className="text-lg md:text-xl mb-8 text-white/90 drop-shadow-md">
