@@ -6,7 +6,7 @@ export default function Navbar({ cartCount }) {
     <nav className="flex justify-between items-center bg-orange-600 text-white px-6 py-4 shadow-md">
       {/* Brand/Logo */}
       <Link to="/" className="text-xl font-bold hover:text-yellow-200">
-        🍬 The Thath Bihari
+        🍬 The Theth Bihari
       </Link>
 
       {/* Navigation Links */}
