@@ -2,13 +2,13 @@ import React from "react";
 import SweetCard from "../components/SweetCard";
 
 const sweets = [
-  { name: "Thekua", price: "150/kg", priceValue: 150, img: "/images/thekua.jpg" },
-  { name: "Suji Halwa", price: "180/plate", priceValue: 180, img: "/images/suji.jpg" },
-  { name: "Gujiya", price: "399/kg", priceValue: 399, img: "/images/gujiya.jpg" },
-  { name: "Ananas", price: "299/kg", priceValue: 299, img: "/images/methi.jpg" },
-  { name: "Malpua", price: "70/pcs", priceValue: 70, img: "/images/malpua.jpg" },
-  { name: "Khoa Mix Cake", price: "499/kg", priceValue: 499, img: "/images/khoa.jpg" },
-  { name: "Haldi Halwa", price: "599/kg", priceValue: 599, img: "/images/haldi.jpg" }
+  { name: "Thekua", price: "20/pcs", priceValue: 20, img: "/images/thekua.jpg" },
+  { name: "Suji Halwa", price: "60/plate", priceValue: 60, img: "/images/suji.jpg" },
+  { name: "Gujiya", price: "20/pcs", priceValue: 20, img: "/images/gujiya.jpg" },
+  { name: "Ananas", price: "160/kg", priceValue: 160, img: "/images/methi.jpg" },
+  { name: "Malpua", price: "40/pcs", priceValue: 40, img: "/images/malpua.jpg" },
+  { name: "Khoa Mix Cake", price: "180/kg", priceValue: 180, img: "/images/khoa.jpg" },
+  { name: "Haldi Halwa", price: "80/plate", priceValue: 80, img: "/images/haldi.jpg" }
 ];
 
 export default function Menu({ addToCart }) {
