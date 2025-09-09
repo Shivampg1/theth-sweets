@@ -2,13 +2,13 @@ import React from "react";
 import SweetCard from "../components/SweetCard";
 
 const sweets = [
-  { name: "Thekua", price: 150, img: "/images/thekua.jpg" },
-  { name: "Suji Halwa", price: 120, img: "/images/suji.jpg" },
-  { name: "Gujiya", price: 200, img: "/images/gujiya.jpg" },
-  { name: "Methi", price: 100, img: "/images/methi.jpg" },
-  { name: "Malpua", price: 180, img: "/images/malpua.jpg" },
-  { name: "Khoa Mix Cake", price: 220, img: "/images/khoa.jpg" },
-  { name: "Haldi Halwa", price: 130, img: "/images/haldi.jpg" }
+  { name: "Thekua", price: 299/kg, img: "/images/thekua.jpg" },
+  { name: "Suji Halwa", price: 180/kg, img: "/images/suji.jpg" },
+  { name: "Gujiya", price: 680/kg, img: "/images/gujiya.jpg" },
+  { name: "Anarsa", price: 340/kg, img: "/images/methi.jpg" },
+  { name: "Malpua", price: 70/pcs, img: "/images/malpua.jpg" },
+  { name: "Khoa Mix Cake", price: 540/kg, img: "/images/khoa.jpg" },
+  { name: "Haldi Halwa", price: 780/kg, img: "/images/haldi.jpg" }
 ];
 
 export default function Menu({ addToCart }) {
