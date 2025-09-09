@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 
 export default function Checkout({ cart }) {
-  const total = cart.reduce((acc, item) => acc + item.price, 0);
-  const orderList = cart.map((i) => i.name).join(", ");
+  // ✅ use priceValue for correct total calculation
+  const total = cart.reduce((acc, item) => acc + (item.priceValue || 0), 0);
+  const orderList = cart.map((i) => `${i.name} - ₹${i.price}`).join(", ");
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
-  const whatsappMessage = `Hi, I want to order: ${orderList}.
+  const whatsappMessage = `Hi, I want to order:
+${orderList}.
 Total = ₹${total}.
+
 Customer Details:
 Name: ${name}
 Phone: ${phone}
