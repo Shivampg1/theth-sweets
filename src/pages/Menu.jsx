@@ -2,7 +2,7 @@ import React from "react";
 import SweetCard from "../components/SweetCard";
 
 const sweets = [
-  { name: "Thekua", price: "20/pcs", priceValue: 20, img: "/images/thekua.jpg" },
+  { name: "Thekua", price: "399/packet", priceValue: 399, img: "/images/thekua.jpg" },
   { name: "Suji Halwa", price: "60/plate", priceValue: 60, img: "/images/suji.jpg" },
   { name: "Gujiya", price: "20/pcs", priceValue: 20, img: "/images/gujiya.jpg" },
   { name: "Ananas", price: "160/kg", priceValue: 160, img: "/images/methi.jpg" },
