@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Cart({ cart, removeFromCart }) {
-  const total = cart.reduce((acc, item) => acc + item.price, 0);
+  // Calculate total using priceValue (numeric price)
+  const total = cart.reduce((acc, item) => acc + (item.priceValue || 0), 0);
 
   return (
     <div className="p-8">
