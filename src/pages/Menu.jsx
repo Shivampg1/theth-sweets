@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import SweetCard from "../components/SweetCard";
 
 const sweets = [
@@ -12,58 +12,63 @@ const sweets = [
 ];
 
 export default function Menu({ addToCart }) {
-  const [toastText, setToastText] = useState("");
-  const [visible, setVisible] = useState(false);
-  const timerRef = useRef(null);
+  // Creates a DOM toast at top-center, removes any previous toast first
+  const showToast = (text) => {
+    // remove existing toast if present (ensures single toast)
+    const prev = document.getElementById("floating-toast");
+    if (prev) prev.remove();
 
-  // cleanup timers on unmount
-  useEffect(() => () => clearTimeout(timerRef.current), []);
+    const toast = document.createElement("div");
+    toast.id = "floating-toast";
+    toast.textContent = text;
+
+    // base styles (keeps it independent of your CSS)
+    Object.assign(toast.style, {
+      position: "fixed",
+      top: "16px",
+      left: "50%",
+      transform: "translateX(-50%) translateY(-8px)",
+      background: "#16a34a", // green
+      color: "white",
+      padding: "10px 18px",
+      borderRadius: "8px",
+      boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+      zIndex: 9999,
+      opacity: "0",
+      pointerEvents: "none",
+      transition: "opacity 180ms ease, transform 180ms ease",
+      fontFamily: "Inter, sans-serif",
+      fontWeight: 600,
+    });
+
+    document.body.appendChild(toast);
+
+    // show (allow the browser to apply initial style first)
+    requestAnimationFrame(() => {
+      toast.style.opacity = "1";
+      toast.style.transform = "translateX(-50%) translateY(0)";
+    });
+
+    // hide after 2000ms
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transform = "translateX(-50%) translateY(-8px)";
+      // remove from DOM after transition
+      setTimeout(() => {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 200);
+    }, 2000);
+  };
 
   const handleAddToCart = (sweet) => {
-    // Call parent addToCart (if provided)
     if (typeof addToCart === "function") addToCart(sweet);
-
-    // Show toast
-    setToastText(`${sweet.name} added to cart 🛒`);
-    setVisible(true);
-
-    // Reset timer
-    clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(() => {
-      setVisible(false);
-      // clear text after transition so component doesn't render empty block
-      setTimeout(() => setToastText(""), 200);
-    }, 2000);
+    showToast(`${sweet.name} added to cart 🛒`);
   };
 
   return (
     <div className="p-8">
-      {/* Floating toast - top-center */}
-      <div
-        aria-live="polite"
-        className="fixed top-4 left-1/2 z-50 pointer-events-none"
-        style={{
-          transform: "translateX(-50%)",
-          transition: "opacity 180ms ease, transform 180ms ease",
-          opacity: visible ? 1 : 0,
-          // nudge up when hidden for nicer appear/disappear
-          transformOrigin: "center top"
-        }}
-      >
-        {toastText ? (
-          <div
-            className="px-6 py-3 rounded-lg shadow-lg"
-            style={{ backgroundColor: "#16a34a", color: "white" }}
-          >
-            {toastText}
-          </div>
-        ) : null}
-      </div>
-
-      {/* Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
         {sweets.map((sweet, i) => (
-          // pass a clear onAdd callback
           <SweetCard key={i} sweet={sweet} onAdd={() => handleAddToCart(sweet)} />
         ))}
       </div>
