@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import SweetCard from "../components/SweetCard";
 
 const sweets = [
@@ -12,35 +12,59 @@ const sweets = [
 ];
 
 export default function Menu({ addToCart }) {
-  const [message, setMessage] = useState("");
+  const [toastText, setToastText] = useState("");
+  const [visible, setVisible] = useState(false);
+  const timerRef = useRef(null);
+
+  // cleanup timers on unmount
+  useEffect(() => () => clearTimeout(timerRef.current), []);
 
   const handleAddToCart = (sweet) => {
-    addToCart(sweet);
-    setMessage(`${sweet.name} added to cart 🛒`);
+    // Call parent addToCart (if provided)
+    if (typeof addToCart === "function") addToCart(sweet);
 
-    // clear after 2 seconds
-    setTimeout(() => {
-      setMessage("");
+    // Show toast
+    setToastText(`${sweet.name} added to cart 🛒`);
+    setVisible(true);
+
+    // Reset timer
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      setVisible(false);
+      // clear text after transition so component doesn't render empty block
+      setTimeout(() => setToastText(""), 200);
     }, 2000);
   };
 
   return (
     <div className="p-8">
-      {/* ✅ Notification */}
-      {message && (
-        <div className="mb-4 text-center bg-green-600 text-white py-2 px-4 rounded-lg shadow-md animate-fade-in-out">
-          {message}
-        </div>
-      )}
+      {/* Floating toast - top-center */}
+      <div
+        aria-live="polite"
+        className="fixed top-4 left-1/2 z-50 pointer-events-none"
+        style={{
+          transform: "translateX(-50%)",
+          transition: "opacity 180ms ease, transform 180ms ease",
+          opacity: visible ? 1 : 0,
+          // nudge up when hidden for nicer appear/disappear
+          transformOrigin: "center top"
+        }}
+      >
+        {toastText ? (
+          <div
+            className="px-6 py-3 rounded-lg shadow-lg"
+            style={{ backgroundColor: "#16a34a", color: "white" }}
+          >
+            {toastText}
+          </div>
+        ) : null}
+      </div>
 
-      {/* ✅ Sweet cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+      {/* Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
         {sweets.map((sweet, i) => (
-          <SweetCard
-            key={i}
-            sweet={sweet}
-            addToCart={() => handleAddToCart(sweet)}
-          />
+          // pass a clear onAdd callback
+          <SweetCard key={i} sweet={sweet} onAdd={() => handleAddToCart(sweet)} />
         ))}
       </div>
     </div>
