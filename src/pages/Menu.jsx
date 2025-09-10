@@ -18,7 +18,6 @@ export default function Menu({ addToCart }) {
     addToCart(sweet);
     setMessage(`${sweet.name} added to cart 🛒`);
 
-    // clear after 2 seconds
     setTimeout(() => {
       setMessage("");
     }, 2000);
@@ -26,14 +25,14 @@ export default function Menu({ addToCart }) {
 
   return (
     <div className="p-8">
-      {/* ✅ Notification */}
+      {/* ✅ Floating Notification */}
       {message && (
-        <div className="mb-4 text-center bg-green-600 text-white py-2 px-4 rounded-lg shadow-md animate-fade-in-out">
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in-out z-50">
           {message}
         </div>
       )}
 
-      {/* ✅ Sweet cards */}
+      {/* ✅ Sweet Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
         {sweets.map((sweet, i) => (
           <SweetCard
