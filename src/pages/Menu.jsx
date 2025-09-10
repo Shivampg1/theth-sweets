@@ -1,5 +1,4 @@
-// src/pages/Menu.jsx (replace your current file)
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import SweetCard from "../components/SweetCard";
 
 const sweets = [
@@ -13,68 +12,34 @@ const sweets = [
 ];
 
 export default function Menu({ addToCart }) {
-  const [toast, setToast] = useState({ msg: "", visible: false });
-  const timers = useRef([]);
-
-  useEffect(() => {
-    return () => {
-      // cleanup timers on unmount
-      timers.current.forEach((t) => clearTimeout(t));
-      timers.current = [];
-    };
-  }, []);
+  const [message, setMessage] = useState("");
 
   const handleAddToCart = (sweet) => {
-    // call parent's addToCart
     addToCart(sweet);
+    setMessage(`${sweet.name} added to cart 🛒`);
 
-    // show toast (visible -> true)
-    setToast({ msg: `${sweet.name} added to cart 🛒`, visible: true });
-
-    // clear any existing timers
-    timers.current.forEach((t) => clearTimeout(t));
-    timers.current = [];
-
-    // hide (fade) after 1800ms
-    timers.current.push(
-      setTimeout(() => {
-        setToast((s) => ({ ...s, visible: false }));
-      }, 1800)
-    );
-
-    // remove text after 2200ms (so opacity transition can finish)
-    timers.current.push(
-      setTimeout(() => {
-        setToast({ msg: "", visible: false });
-      }, 2200)
-    );
+    setTimeout(() => {
+      setMessage("");
+    }, 2000);
   };
 
   return (
     <div className="p-8">
-      {/* Floating toast (top-center, fixed) */}
-      {toast.msg && (
-        <div
-          className="fixed top-4 left-1/2 z-50 rounded-lg shadow-lg px-6 py-3"
-          style={{
-            background: "#16a34a", // green-600
-            color: "white",
-            transform: toast.visible ? "translate(-50%, 0)" : "translate(-50%, -8px)",
-            left: "50%",
-            transition: "opacity 220ms ease, transform 220ms ease",
-            opacity: toast.visible ? 1 : 0,
-            pointerEvents: "none" // won't block clicks
-          }}
-        >
-          {toast.msg}
+      {/* ✅ Floating Notification */}
+      {message && (
+        <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in-out z-50">
+          {message}
         </div>
       )}
 
-      {/* grid of sweets */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6">
+      {/* ✅ Sweet Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
         {sweets.map((sweet, i) => (
-          // we pass a function so SweetCard can call addToCart() without args
-          <SweetCard key={i} sweet={sweet} addToCart={() => handleAddToCart(sweet)} />
+          <SweetCard
+            key={i}
+            sweet={sweet}
+            addToCart={() => handleAddToCart(sweet)}
+          />
         ))}
       </div>
     </div>
