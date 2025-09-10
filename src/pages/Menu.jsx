@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SweetCard from "../components/SweetCard";
 
 const sweets = [
@@ -12,11 +12,37 @@ const sweets = [
 ];
 
 export default function Menu({ addToCart }) {
+  const [message, setMessage] = useState("");
+
+  const handleAddToCart = (sweet) => {
+    addToCart(sweet);
+    setMessage(`${sweet.name} added to cart 🛒`);
+
+    // clear after 2 seconds
+    setTimeout(() => {
+      setMessage("");
+    }, 2000);
+  };
+
   return (
-    <div className="p-8 grid grid-cols-2 md:grid-cols-3 gap-6">
-      {sweets.map((sweet, i) => (
-        <SweetCard key={i} sweet={sweet} addToCart={addToCart} />
-      ))}
+    <div className="p-8">
+      {/* ✅ Notification */}
+      {message && (
+        <div className="mb-4 text-center bg-green-600 text-white py-2 px-4 rounded-lg shadow-md animate-fade-in-out">
+          {message}
+        </div>
+      )}
+
+      {/* ✅ Sweet cards */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+        {sweets.map((sweet, i) => (
+          <SweetCard
+            key={i}
+            sweet={sweet}
+            addToCart={() => handleAddToCart(sweet)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
