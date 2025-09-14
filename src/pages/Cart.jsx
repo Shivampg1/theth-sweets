@@ -15,7 +15,7 @@ export default function Cart({ cart, removeFromCart }) {
           <ul className="mb-4">
             {cart.map((item, index) => (
               <li key={index} className="flex justify-between border-b py-2">
-                {item.name} - ₹{item.price}
+                {item.name} - {item.price}
                 <button
                   onClick={() => removeFromCart(index)}
                   className="text-red-500"
