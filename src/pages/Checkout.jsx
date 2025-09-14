@@ -3,7 +3,7 @@ import React, { useState } from "react";
 export default function Checkout({ cart }) {
   // ✅ use priceValue for correct total calculation
   const total = cart.reduce((acc, item) => acc + (item.priceValue || 0), 0);
-  const orderList = cart.map((i) => `${i.name} - ₹${i.price}`).join(", ");
+  const orderList = cart.map((i) => `${i.name} - ${i.price}`).join(", ");
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
